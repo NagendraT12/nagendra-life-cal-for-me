@@ -1,0 +1,5 @@
+{
+  "name": "Life Calendar AI",
+  "description": "A digital memento mori that visualizes your life in weeks. Use AI to calculate how your daily habits impact your remaining time.",
+  "requestFramePermissions": []
+}

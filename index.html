@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <title>Life Calendar AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              mono: ['JetBrains Mono', 'monospace'],
+            },
+            colors: {
+              'life-paper': '#d4d4d4', // Slightly darker, heavier paper feel
+              'life-ink': '#050505',   // Vantablack feel
+              'life-accent': '#ff0000', // Pure red
+              'void': '#000000',
+            },
+            boxShadow: {
+              'hard': '4px 4px 0px 0px rgba(0, 0, 0, 1)',
+              'hard-sm': '2px 2px 0px 0px rgba(0, 0, 0, 1)',
+              'glow': '0 0 20px rgba(255, 0, 0, 0.4)',
+            },
+            animation: {
+              'pulse-fast': 'pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'glitch': 'glitch 2s linear infinite',
+              'shimmer': 'shimmer 2s linear infinite',
+            },
+            keyframes: {
+              glitch: {
+                '2%, 64%': { transform: 'translate(2px,0) skew(0deg)' },
+                '4%, 60%': { transform: 'translate(-2px,0) skew(0deg)' },
+                '62%': { transform: 'translate(0,0) skew(5deg)' },
+              },
+              shimmer: {
+                '0%': { transform: 'translateX(-100%)' },
+                '100%': { transform: 'translateX(100%)' }
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        background-color: #d4d4d4;
+        color: #050505;
+        overflow-x: hidden;
+      }
+      
+      /* Removed .scanlines to fix the black line issue */
+
+      /* Heavy Noise overlay - Refined opacity */
+      .bg-noise {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 40;
+        opacity: 0.04;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      }
+
+      /* Vignette - Tunnel Vision (Smoother gradient) */
+      .vignette {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 45;
+        background: radial-gradient(circle, rgba(0,0,0,0) 50%, rgba(0,0,0,0.1) 80%, rgba(0,0,0,0.4) 100%);
+        mix-blend-mode: multiply;
+      }
+      
+      .grid-scroll::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+      }
+      .grid-scroll::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .grid-scroll::-webkit-scrollbar-thumb {
+        background: #0f0f0f;
+      }
+      
+      /* Custom Hover Glitch for Weeks */
+      .week-glitch:hover {
+        background-color: #000;
+        border-color: #000;
+        transform: scale(1.5);
+        z-index: 50;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      }
+
+      ::selection {
+        background: #000;
+        color: #fff;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+    <div class="bg-noise"></div>
+    <div class="vignette"></div>
+  </body>
+</html>
